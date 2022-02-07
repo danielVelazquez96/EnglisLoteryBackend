@@ -3,7 +3,7 @@ const app=express();
 const port=5000;
 const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
-
+const cors=require('cors');
 // const path=require('path');
 
 // app.use(express.static(path.join(__dirname,'../public/')));
@@ -11,7 +11,7 @@ const mongoose=require('mongoose');
 // bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-
+app.use(cors());
 
 //mongoose
 mongoose.connect('mongodb+srv://Daniel:LoteryEnglish@cluster0.gn9gp.mongodb.net/Version1?retryWrites=true&w=majority',{useNewUrlParser:true,useUnifiedTopology:true});
