@@ -1,20 +1,22 @@
-const express=require('express');
-const app=express();
-const port=5000;
-const bodyParser=require('body-parser');
-const mongoose=require('mongoose');
-const cors=require('cors');
+import dotenv from 'dotenv';
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import cors from 'cors';
 // const path=require('path');
 
-// app.use(express.static(path.join(__dirname,'../public/')));
+const app=express();
+const PORT=process.env.PORT||5000
+dotenv.config();
 
 // bodyParser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json({ limit: '30mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
 //mongoose
-mongoose.connect('mongodb+srv://Daniel:LoteryEnglish@cluster0.gn9gp.mongodb.net/Version1?retryWrites=true&w=majority',{useNewUrlParser:true,useUnifiedTopology:true});
+
+mongoose.connect(process.env.CONNETCION_URL,{useNewUrlParser:true,useUnifiedTopology:true});
 
 
 const connection =mongoose.connection; 
@@ -39,10 +41,14 @@ app.get('/getData',(req,res)=>{
         .catch(err=>console.log(`Failed to download data err: ${err}`));
 })
 
+app.get('/',(req,res)=>{
+    res.json('Hello, API works');
+})
+
 // Listen
 
-app.listen(port,()=>{
-    console.log(`${port} conected`);
+app.listen(PORT,()=>{
+    console.log(`${PORT} conected`);
 });
 
 
