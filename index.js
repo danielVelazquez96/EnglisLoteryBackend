@@ -49,14 +49,12 @@ app.get('/getData',(req,res)=>{
 })
 
 app.post('/api/upload', async (req, res) => {
-    console.log("entro");
     try {
         const fileStr = req.body.data;
         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
             englishLoteryPublic: 'englishLoteryPublic',
         });
-        console.log(uploadResponse);
-        res.json({ msg: 'yaya' });
+        res.send(uploadResponse);
     } catch (err) {
         console.error(err);
         res.status(500).json({ err: 'Something went wrong' });
